@@ -37,3 +37,38 @@ Compétences démontrées
 - Déploiement de services conteneurisés  
 - Gestion des ports et du réseau  
 - Environnement Linux et bonnes pratiques DevOps
+
+---
+
+Déploiement Kubernetes (minikube)
+
+Objectif  
+Déployer une application Nginx sur un cluster Kubernetes local (minikube) afin de démontrer la maîtrise des concepts fondamentaux Kubernetes.
+
+Ressources Kubernetes  
+- Deployment : nginx-deployment  
+- Service : nginx-service (NodePort)
+
+Déploiement
+
+1. Démarrer le cluster
+minikube start --driver=docker
+
+2. Appliquer les manifests
+kubectl apply -f k8s/nginx.yaml
+
+3. Vérifier l’état
+kubectl get pods
+kubectl get svc
+
+4. Accéder au service (méthode fiable)
+kubectl port-forward svc/nginx-service 8081:80
+
+Accès à l’application  
+http://localhost:8081
+
+Compétences démontrées  
+- Kubernetes (Deployment, Service)  
+- Orchestration de conteneurs  
+- Débogage et exposition de services  
+- Utilisation de minikube
