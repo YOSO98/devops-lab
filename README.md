@@ -1,24 +1,31 @@
 # devops-lab
 
-## Présentation du projet
+> Projet DevOps complet démontrant le déploiement, l’orchestration, l’automatisation
+> et le monitoring d’une application web **Nginx** dans un environnement Linux.
 
-**devops-lab** est un projet de démonstration DevOps visant à mettre en place, déployer et automatiser une application web **Nginx** en utilisant plusieurs outils clés de l’écosystème DevOps.
+---
+
+## 📌 Présentation du projet
+
+**devops-lab** est un projet de démonstration DevOps visant à mettre en place une stack web **reproductible et automatisée**, en utilisant les principaux outils du métier.
 
 Le projet couvre :
 - le déploiement avec **Docker**
 - l’orchestration avec **Kubernetes (Minikube)**
 - l’automatisation avec **Ansible**
-- les bases du **monitoring avec Prometheus**
+- le monitoring avec **Prometheus**
 
 ---
 
-## Objectif
+## 🎯 Objectif
 
-Mettre en œuvre une stack web simple, reproductible et automatisée dans un environnement Linux (Debian / WSL), en suivant une démarche DevOps complète.
+Mettre en œuvre une stack web simple, automatisée et observable dans un environnement
+**Linux (Debian / WSL)**, en suivant une démarche DevOps de bout en bout.
 
 ---
 
-## Architecture (Docker)
+## 🧱 Architecture (Docker)
+
 
 
 Client → Nginx (conteneur Docker) → Port 8080
@@ -26,7 +33,7 @@ Client → Nginx (conteneur Docker) → Port 8080
 
 ---
 
-## Technologies utilisées
+## 🛠️ Technologies utilisées
 
 - Linux (Debian – WSL)
 - Docker
@@ -38,15 +45,13 @@ Client → Nginx (conteneur Docker) → Port 8080
 
 ---
 
-## Déploiement Docker (Stack Web)
+## 🚀 Déploiement Docker (Stack Web)
 
 ### Étape 1 – Cloner le repository
 
 ```bash
 git clone https://github.com/YOSO98/devops-lab.git
 cd devops-lab
-
-
 
 Étape 2 – Lancer la stack Docker
 docker compose up -d
@@ -62,16 +67,17 @@ Ou dans un navigateur :
 
 http://localhost:8080
 
-Résultat attendu
+✅ Résultat attendu
 
 Page d’accueil Nginx affichée
 
 Service accessible depuis la machine hôte
 
-Déploiement Kubernetes avec Minikube
+☸️ Déploiement Kubernetes avec Minikube
 Objectif
 
-Déployer Nginx sur un cluster Kubernetes local afin de maîtriser les concepts fondamentaux de Kubernetes.
+Déployer Nginx sur un cluster Kubernetes local afin de maîtriser les concepts fondamentaux
+de l’orchestration de conteneurs.
 
 Étape 1 – Démarrer Minikube
 minikube start --driver=docker
@@ -91,13 +97,13 @@ Navigateur :
 
 http://localhost:8081
 
-Résultat attendu
+✅ Résultat attendu
 
 Pod en état Running
 
 Service accessible via port-forward
 
-Automatisation avec Ansible
+🤖 Automatisation avec Ansible
 Objectif
 
 Installer et configurer automatiquement Nginx sur Linux sans aucune intervention manuelle.
@@ -150,18 +156,29 @@ Ajouter à la fin du fichier :
 debian ALL=(ALL) NOPASSWD: ALL
 
 
-⚠️ Configuration réservée à un environnement de laboratoire.
+⚠️ Configuration réservée à un environnement de laboratoire / développement.
 
 Étape 4 – Exécuter le playbook
 ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/install_nginx.yml
 
+
+Aucune saisie de mot de passe n’est requise.
+
 Étape 5 – Vérification
 curl http://localhost
 
-Monitoring avec Prometheus
+✅ Résultat attendu
+
+Nginx installé automatiquement
+
+Service démarré et activé au boot
+
+Accès fonctionnel au serveur web
+
+📊 Monitoring avec Prometheus
 Objectif
 
-Superviser les services via un système de monitoring simple.
+Superviser les services via un système de monitoring simple et fonctionnel.
 
 Arborescence monitoring
 monitoring/
@@ -188,11 +205,11 @@ Dans l’interface Prometheus :
 Status → Targets
 
 
-Les services doivent être en état UP.
+Les services doivent apparaître en état UP.
 
-Compétences démontrées
+🧠 Compétences démontrées
 
-Docker et Docker Compose
+Docker & Docker Compose
 
 Kubernetes (Deployment, Service)
 
@@ -202,8 +219,9 @@ Linux et gestion des privilèges
 
 Monitoring avec Prometheus
 
-Démarche DevOps complète
+Démarche DevOps complète et reproductible
 
-Conclusion
+🏁 Conclusion
 
-Ce projet constitue un portfolio DevOps structuré, automatisé et reproductible, démontrant des compétences concrètes applicables en environnement professionnel.
+Ce projet constitue un portfolio DevOps structuré, automatisé et professionnel,
+démontrant des compétences techniques directement applicables en environnement réel.
