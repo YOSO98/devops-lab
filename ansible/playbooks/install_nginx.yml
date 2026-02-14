@@ -1,0 +1,21 @@
+---
+- name: Installer et démarrer Nginx sur le serveur local
+  hosts: local
+  become: true
+
+  tasks:
+    - name: Mettre à jour le cache APT
+      apt:
+        update_cache: yes
+
+    - name: Installer Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Démarrer et activer Nginx au démarrage
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
