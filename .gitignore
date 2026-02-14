@@ -1,0 +1,10 @@
+# Binaries
+minikube-linux-amd64
+
+# Kubernetes
+.kube/
+
+# OS / tooling
+*.log
+*.tmp
+
