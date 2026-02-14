@@ -1,119 +1,122 @@
 # devops-lab
-Lab DevOps : Docker, Docker Compose et déploiement d’une stack web
-Objectif  
-Ce projet a pour objectif de démontrer la mise en place d’une stack web simple et reproductible à l’aide de Docker Compose, dans un environnement Linux (WSL).
 
-Architecture  
+## Présentation du projet
+
+**devops-lab** est un projet de démonstration DevOps visant à mettre en place, déployer et automatiser une application web **Nginx** en utilisant plusieurs outils clés de l’écosystème DevOps.
+
+Le projet couvre :
+- le déploiement avec **Docker**
+- l’orchestration avec **Kubernetes (Minikube)**
+- l’automatisation avec **Ansible**
+- les bases du **monitoring avec Prometheus**
+
+---
+
+## Objectif
+
+Mettre en œuvre une stack web simple, reproductible et automatisée dans un environnement Linux (Debian / WSL), en suivant une démarche DevOps complète.
+
+---
+
+## Architecture (Docker)
+
+
 Client → Nginx (conteneur Docker) → Port 8080
 
-Technologies utilisées  
-- Linux (Debian – WSL)  
-- Docker  
-- Docker Compose  
-- Nginx  
 
-Déploiement
+---
 
-1. Cloner le repository
+## Technologies utilisées
+
+- Linux (Debian – WSL)
+- Docker
+- Docker Compose
+- Kubernetes (Minikube)
+- Ansible
+- Prometheus
+- Nginx
+
+---
+
+## Déploiement Docker (Stack Web)
+
+### Étape 1 – Cloner le repository
+
+```bash
 git clone https://github.com/YOSO98/devops-lab.git
 cd devops-lab
 
-2. Lancer la stack
+
+
+Étape 2 – Lancer la stack Docker
 docker compose up -d
 
-3. Vérifier les conteneurs
+Étape 3 – Vérifier l’état des conteneurs
 docker ps
 
-4. Tester le service
-curl http://localhost:8080  
-ou  
-Navigateur : http://localhost:8080
+Étape 4 – Tester le service
+curl http://localhost:8080
 
-Résultat attendu  
-Affichage de la page d’accueil Nginx confirmant le bon fonctionnement du conteneur et de l’exposition réseau.
 
-Compétences démontrées  
-- Utilisation de Docker et Docker Compose  
-- Déploiement de services conteneurisés  
-- Gestion des ports et du réseau  
-- Environnement Linux et bonnes pratiques DevOps
+Ou dans un navigateur :
 
----
+http://localhost:8080
 
-Déploiement Kubernetes (minikube)
+Résultat attendu
 
-Objectif  
-Déployer une application Nginx sur un cluster Kubernetes local (minikube) afin de démontrer la maîtrise des concepts fondamentaux Kubernetes.
+Page d’accueil Nginx affichée
 
-Ressources Kubernetes  
-- Deployment : nginx-deployment  
-- Service : nginx-service (NodePort)
+Service accessible depuis la machine hôte
 
-Déploiement
+Déploiement Kubernetes avec Minikube
+Objectif
 
-1. Démarrer le cluster
+Déployer Nginx sur un cluster Kubernetes local afin de maîtriser les concepts fondamentaux de Kubernetes.
+
+Étape 1 – Démarrer Minikube
 minikube start --driver=docker
 
-2. Appliquer les manifests
+Étape 2 – Déployer Nginx
 kubectl apply -f k8s/nginx.yaml
 
-3. Vérifier l’état
+Étape 3 – Vérifier les ressources
 kubectl get pods
 kubectl get svc
 
-4. Accéder au service (méthode fiable)
+Étape 4 – Accéder au service
 kubectl port-forward svc/nginx-service 8081:80
 
-Accès à l’application  
+
+Navigateur :
+
 http://localhost:8081
 
-Compétences démontrées  
-- Kubernetes (Deployment, Service)  
-- Orchestration de conteneurs  
-- Débogage et exposition de services  
-- Utilisation de minikube
+Résultat attendu
 
----
+Pod en état Running
 
-Automatisation avec Ansible (Tutoriel)
+Service accessible via port-forward
 
-Objectif  
-Mettre en place une automatisation complète permettant d’installer et de configurer un serveur web **Nginx** sur Linux à l’aide d’Ansible, sans intervention manuelle.
+Automatisation avec Ansible
+Objectif
 
----
+Installer et configurer automatiquement Nginx sur Linux sans aucune intervention manuelle.
 
-Tutoriel pas à pas
-
-Étape 1 – Préparer l’arborescence Ansible
-
-Créer la structure suivante dans le projet :
-
+Arborescence utilisée
 ansible/
 ├── inventory/
 │   └── hosts.ini
 └── playbooks/
     └── install_nginx.yml
 
----
-
-Étape 2 – Définir l’inventaire Ansible
-
-L’inventaire permet de définir la machine cible.  
-Dans ce projet, la cible est le serveur local (localhost).
+Étape 1 – Inventaire Ansible
 
 Fichier : ansible/inventory/hosts.ini
 
 [local]
 localhost ansible_connection=local
 
----
-
-Étape 3 – Créer le playbook Ansible
-
-Le playbook automatise les actions suivantes :
-- Mise à jour du cache APT
-- Installation de Nginx
-- Démarrage et activation du service Nginx
+Étape 2 – Playbook Ansible
 
 Fichier : ansible/playbooks/install_nginx.yml
 
@@ -138,57 +141,69 @@ Fichier : ansible/playbooks/install_nginx.yml
         state: started
         enabled: true
 
----
-
-Étape 4 – Configurer sudo sans mot de passe (automatisation complète)
-
-Pour permettre une exécution non interactive du playbook, l’utilisateur utilisé par Ansible est configuré pour utiliser sudo sans mot de passe.
-
-Commande :
-
+Étape 3 – Configuration sudo sans mot de passe
 sudo visudo
 
-Ajouter la ligne suivante à la fin du fichier :
+
+Ajouter à la fin du fichier :
 
 debian ALL=(ALL) NOPASSWD: ALL
 
-Cette configuration est adaptée à un environnement de laboratoire ou de développement.
 
----
+⚠️ Configuration réservée à un environnement de laboratoire.
 
-Étape 5 – Exécuter le playbook
-
-Lancer le playbook avec la commande suivante :
-
+Étape 4 – Exécuter le playbook
 ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/install_nginx.yml
 
-Aucune saisie de mot de passe n’est nécessaire.
-
----
-
-Étape 6 – Vérifier le résultat
-
-Tester le service Nginx :
-
+Étape 5 – Vérification
 curl http://localhost
 
-Ou vérifier le statut du service :
+Monitoring avec Prometheus
+Objectif
 
-systemctl status nginx
+Superviser les services via un système de monitoring simple.
 
----
+Arborescence monitoring
+monitoring/
+├── docker-compose.monitoring.yml
+└── prometheus/
+    └── prometheus.yml
 
-Résultat attendu
+Étape 1 – Lancer Prometheus
+docker compose -f monitoring/docker-compose.monitoring.yml up -d
 
-- Nginx est installé automatiquement
-- Le service est démarré et activé au démarrage
-- La page par défaut Nginx est accessible depuis le serveur local
+Étape 2 – Vérifier les conteneurs
+docker ps
 
----
+Étape 3 – Accéder à Prometheus
+
+Navigateur :
+
+http://localhost:9090
+
+Étape 4 – Vérifier les targets
+
+Dans l’interface Prometheus :
+
+Status → Targets
+
+
+Les services doivent être en état UP.
 
 Compétences démontrées
 
-- Ansible (inventaire, playbooks, modules apt et service)
-- Automatisation système Linux
-- Exécution non interactive
-- Gestion des privilèges sudo
+Docker et Docker Compose
+
+Kubernetes (Deployment, Service)
+
+Ansible (inventaire, playbooks, automatisation)
+
+Linux et gestion des privilèges
+
+Monitoring avec Prometheus
+
+Démarche DevOps complète
+
+Conclusion
+
+Ce projet constitue un portfolio DevOps structuré, automatisé et reproductible, démontrant des compétences concrètes applicables en environnement professionnel.
